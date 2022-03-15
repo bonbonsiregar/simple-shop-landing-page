@@ -1,11 +1,8 @@
-//const express = require('express')
 import express from 'express'
-//const dotenv = require('dotenv')
 import dotenv from 'dotenv'
-//const products = require('./backend/data/products')
-import products from './backend/data/products.js'
-
 import connectDB from './backend/config/db.js'
+import productRoutes from './backend/routes/productRoutes.js'
+import { errorHandle, notFound } from './backend/middleware/errorMiddleware.js'
 
 dotenv.config()
 
@@ -17,14 +14,13 @@ app.get('/', (req, res) =>{
     res.send('API is Running...')
 })
 
-app.get('/api/products', (req, res) =>{
-    res.json(products)
-})
+app.use('/api/products', productRoutes)
 
-app.get('/api/products/:id', (req, res) =>{
-    const product = products.find((p) => p._id === req.params.id)
-    res.json(product)
-})
+app.use(notFound)
+
+
+// error handling
+app.use(errorHandle)
 
 const PORT = process.env.PORT || 5000
 
