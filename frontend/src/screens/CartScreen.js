@@ -1,17 +1,11 @@
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {Link, useLocation, useNavigate, useParams, useSearchParams} from 'react-router-dom'
+import {Link, useLocation, useNavigate, useParams} from 'react-router-dom'
 import Message from '../components/Message'
 import {Row, Col, ListGroup, Image, ListGroupItem, Button, FormControl, Card} from 'react-bootstrap'
 import {addToCart, removeFromCart} from '../actions/cartActions'
 
 export const CartScreen = () => {
-  // const {productId} = useParams()
-  // const history = useNavigate()
-  // const {useQty} = useLocation()
-
-  // const qty = useQty ? Number(useQty.split("=")[1]) : 1
-
   const { id } = useParams();
   const { search } = useLocation();
   const history = useNavigate();
@@ -19,8 +13,6 @@ export const CartScreen = () => {
   const productId = id;
   const qty = search ? Number(search.split("=")[1]) : 1;
   
-
-  //console.log(qty)
   const dispatch = useDispatch()
 
   const cart = useSelector((state) => state.cart)
